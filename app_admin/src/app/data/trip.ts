@@ -1,4 +1,4 @@
-[
+export const trips = [
     {
         "code": "GALR210214",
         "name": "Gale Reef",
@@ -26,16 +26,5 @@
         "perPerson": "1999.00",
         "image": "reef3.jpg",
         "description": "<p>Claire's Reef Donec sed felis risus. Nulla facilisi. Donec a orci tellus, et auctor odio. Fusce ac orci nibh, quis semper arcu. Cras orci neque, euismod et accumsan ac, sagittis molestie lorem. Proin odio sapien, elementum at tempor non.</p><p>Vulputate eget libero. In hac habitasse platea dictumst. Integer purus justo, egestas eu consectetur eu, cursus in tortor. Quisque nec nunc ac mi ultrices iaculis.</p>"
-    }, {
-        "code": "MEGR220119",
-        "name": "Mega Reef",
-        "length": "6 nights / 7 days",
-        "start": "2021-07-21T08:00:00Z",
-        "resort": "Barrier Island Resort, 5 stars",
-        "perPerson": "3499.00",
-        "image": "reef3.jpg",
-        "description": "<p>The great barrier reef awaits!</p><p>Come and explore the wonders of the reef with our expert guides. Snorkel, dive, and relax in paradise.</p>",
-        "_id": "64b0e1f2f1c2a3b4d5e6f7g8",
-        "__v": 0
     }
-]
+];

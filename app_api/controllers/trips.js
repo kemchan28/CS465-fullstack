@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
-const Trip = require('. ./models/travlr'); //Register model
-const Model = mongoose.model('trips'); //Get model
+const Trip = require('../models/travlr'); // Register model
+const Model = mongoose.model('trips'); // Get model
 
-//GET: /trips - list of all the trips 
-//Regardless of outcome, response must include HTML status code
-//and JSON message to the requesting data
-const tripsList = async(req, res) => {
+// GET: /trips - list of all the trips
+// Regardless of outcome, response must include HTML status code
+// and JSON message to the requesting data
+const tripsList = async (req, res) => {
     const q = await Model
-        .find({}) //Filter by code
+        .find({})
         .exec();
 
-    if(!q){ //Database return no data
+    if (!q || q.length === 0) {
         return res
             .status(404)
-            .json({error: "No trips found"});
+            .json({ error: "No trips found" });
     } else {
         return res
             .status(200)
@@ -21,23 +21,77 @@ const tripsList = async(req, res) => {
     }
 };
 
-const tripsFindByCode = async(req, res) => {
+// GET: /trips/:tripCode - list of all the trips
+// Regardless of outcome, response must include HTML status code
+// and JSON message to the requesting data
+const tripsFindByCode = async (req, res) => {
     const q = await Model
-        .find({'code': req.params.tripCode})
+        .find({ code: req.params.tripCode })
         .exec();
 
-    if(!q){
+    if (!q || q.length === 0) {
         return res
             .status(404)
-            .json({error: "Trip not found"});
+            .json({ error: "Trip not found" });
     } else {
         return res
             .status(200)
             .json(q);
     }
 };
+
+// POST: /trips - Adds a new Trip
+// Regardless of outcome, response must include HTML status code
+// and JSON message to the requesting client
+const tripsAddTrip = async (req, res) => {
+    console.log(req.body);
+    const q = await Model.create(req.body);
+    return res
+        .status(201)
+        .json(q);
+};
+
+// PUT: /trips/:tripCode - Updates an existing Trip
+// Regardless of outcome, response must include HTML status code
+// and JSON message to the requesting client
+const tripsUpdateTrip = async (req, res) => {
+    console.log(req.params);
+    console.log(req.body);
+    const q = await Model
+        .findOneAndUpdate(
+            { code: req.params.tripCode },
+            {
+                code: req.body.code,
+                name: req.body.name,
+                length: req.body.length,
+                start: req.body.start,
+                resort: req.body.resort,
+                perPerson: req.body.perPerson,
+                image: req.body.image,
+                description: req.body.description
+            },
+            { new: true }
+        )
+        .exec();
+
+    if (!q) {
+        return res
+            .status(404)
+            .json({ error: "Trip not found" });
+    } else {
+        return res
+            .status(200)
+            .json(q);
+    }
+};
+
+// Uncomment the following line to show results of operation
+// on the console
+// console.log(q);
 
 module.exports = {
     tripsList,
-    tripsFindByCode
+    tripsFindByCode,
+    tripsAddTrip,
+    tripsUpdateTrip
 };
