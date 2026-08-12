@@ -12,7 +12,7 @@ Revised: 31-Dec-2024 137
         </p>
         <p class="card-text" [innerHTML]="trip.description">
         </p>
-        <div>
+        <div *ngIf="isLoggedIn()">
             <button (click)="editTrip(trip)" class="btn btn-primary">Edit</button>
         </div>
     </div>
